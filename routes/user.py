@@ -2,7 +2,7 @@ from typing import List
 
 import database, models
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from schemas import user
 
 router = APIRouter(
@@ -13,12 +13,16 @@ router = APIRouter(
 get_db = database.get_db
 
 
-@router.get('/getuser/{user_id}',response_model=user.ShowUser)
-async def get_user_by(user_id:int,db: Session = Depends(database.get_db)):
-    user = db.query(models.User).filter(models.User.id==user_id).first()
+@router.get('/getuser/{user_id}', response_model=user.ShowUser)
+async def get_user_by(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Account with the id {user_id} is not available")
     return user
 
-@router.get('/getusers',response_model=List[user.ShowUser])
-async def get_users(db: Session = Depends(database.get_db)):
+
+@router.get('/getusers', response_model=List[user.ShowUser])
+async def get_users(db: Session = Depends(get_db)):
     user = db.query(models.User).all()
     return user

@@ -13,6 +13,7 @@ class Order(Base):
     discount = Column(Float)
     total_price = Column(Float)
     user_id = Column(Integer, ForeignKey('users.id'))
+    seller_id = Column(Integer, ForeignKey('sellers.id'))
     items = relationship("OrderItem", back_populates="order_no")
     owner = relationship("User", back_populates="orders")
 
@@ -34,8 +35,10 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
+    reg_no = Column(String)
     email = Column(String)
-    password = Column(String)
+    notification_token = Column(String)
+    login_token = Column(String)
 
     orders = relationship('Order', back_populates="owner")
 

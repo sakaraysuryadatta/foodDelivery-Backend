@@ -2,13 +2,16 @@ from typing import List
 from pydantic import BaseModel
 from schemas import order
 
+
 class OrderItem(BaseModel):
     name: str
     price: float
-    quantity:int
-    isveg:bool
+    quantity: int
+    isveg: bool
+
     class Config():
         orm_mode = True
+
 
 class Order(BaseModel):
     seller: str
@@ -16,22 +19,37 @@ class Order(BaseModel):
     tax: float
     discount: float
     total_price: float
-    user_id :int
-    items:List[OrderItem]
+    user_id: int
+    items: List[OrderItem]
+
     class Config():
         orm_mode = True
+
 
 class User(BaseModel):
     name: str
     email: str
-    password: str
+    notification_token: str
+    login_token: str
+
     class Config():
         orm_mode = True
 
+
+class login(BaseModel):
+    notification_token: str
+    login_token: str
+
+    class Config():
+        orm_mode = True
+
+
 class ShowUser(BaseModel):
+    id: int
     name: str
     email: str
-    orders : List[Order]
+    reg_no: str
+    orders: List[Order]
 
     class Config():
         orm_mode = True
