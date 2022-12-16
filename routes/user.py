@@ -13,7 +13,7 @@ router = APIRouter(
 get_db = database.get_db
 
 
-@router.get('/getuser/{user_id}', response_model=user.ShowUser)
+@router.get('/getuser/{user_id}', response_model=user.ShowOrders)
 async def get_user_by(user_id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:

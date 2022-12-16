@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-from schemas import order
+from schemas import items, seller
 
 
 class OrderItem(BaseModel):
@@ -50,6 +50,18 @@ class ShowUser(BaseModel):
     email: str
     reg_no: str
     orders: List[Order]
+
+    class Config():
+        orm_mode = True
+class ShowOrders(BaseModel):
+    orders: List[Order]
+
+    class Config():
+        orm_mode = True
+
+class HomePage(BaseModel):
+    sellers: List[seller.GetSellers]
+    items: List[items.HomeItems]
 
     class Config():
         orm_mode = True

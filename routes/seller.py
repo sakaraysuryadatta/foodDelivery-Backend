@@ -13,20 +13,7 @@ router = APIRouter(
 get_db = database.get_db
 
 
-@router.post('/create')
-async def create_seller(request: seller.CreateSeller = Depends(), db: Session = Depends(get_db)):
-    seller = {
-        "name": request.name,
-        "location": request.location,
-        "email": request.email,
-        "password": request.password,
-        "photo": request.photo
-    }
-    new_seller = models.Seller(**seller)
-    db.add(new_seller)
-    db.commit()
-    db.refresh(new_seller)
-    return "Seller created"
+
 
 
 @router.post('/create/item')
