@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class HomeSeller(BaseModel):
-    id: int
+    index: int
     name: str
     location: str
     photo: str

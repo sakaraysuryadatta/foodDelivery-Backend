@@ -45,7 +45,7 @@ class login(BaseModel):
 
 
 class ShowUser(BaseModel):
-    id: int
+    index: int
     name: str
     email: str
     reg_no: str
