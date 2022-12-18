@@ -65,3 +65,13 @@ class Items(Base):
     photo = Column(String)
     seller_id = Column(Integer, ForeignKey('sellers.index'))
     seller = relationship('Seller', back_populates="items")
+    category = Column(Integer, ForeignKey('categories.index'))
+    categories = relationship('Categories', back_populates="items")
+
+class Categories(Base):
+    __tablename__ = 'categories'
+
+    index = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    photo = Column(String)
+    items = relationship("Items", back_populates="categories")

@@ -33,7 +33,7 @@ async def create_item(request: seller.Items = Depends(),
     return "item created"
 
 
-@router.get("/getseller/{id}", response_model=seller.Seller)
+@router.get("/getseller/{id}",response_model = seller.Seller)
 async def get_Seller_by_id(id: int, db: Session = Depends(get_db)):
     seller = db.query(models.Seller).filter(models.Seller.index == id).first()
     return seller

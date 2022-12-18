@@ -14,7 +14,6 @@ class Items(BaseModel):
 
 
 class Seller(BaseModel):
-    index: int
     name: str
     location: str
     email: str

@@ -26,3 +26,9 @@ async def get_user_by(user_id: int, db: Session = Depends(get_db)):
 async def get_users(db: Session = Depends(get_db)):
     user = db.query(models.User).all()
     return user
+
+
+@router.get('/search')
+async def search(search_term:str,db:Session = Depends(get_db)):
+    search_query = db.query(models.Items).filter(models.Items.name.contains(search_term)).all()
+    return {"results" : search_query}

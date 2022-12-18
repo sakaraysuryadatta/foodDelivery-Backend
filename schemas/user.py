@@ -1,6 +1,7 @@
 from typing import List
 from pydantic import BaseModel
 from schemas import items, seller
+from schemas.items import HomeItems
 
 
 class OrderItem(BaseModel):
@@ -62,6 +63,21 @@ class ShowOrders(BaseModel):
 class HomePage(BaseModel):
     sellers: List[seller.GetSellers]
     items: List[items.HomeItems]
+
+    class Config():
+        orm_mode = True
+
+class Items(BaseModel):
+    name: str
+    price: int
+    description: str
+    photo: str
+    seller_id: int
+
+    class Config():
+        orm_mode = True
+class Search(BaseModel):
+    results: List[Items]
 
     class Config():
         orm_mode = True
